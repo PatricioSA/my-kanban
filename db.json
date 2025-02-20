@@ -1,0 +1,47 @@
+{
+    "tasks": [
+        {
+            "id": 1,
+            "title": "Responder emails pendentes",
+            "description": "Verificar e responder emails importantes da caixa de entrada.",
+            "status": "doing",
+            "priority": "high"
+        },
+        {
+            "id": 2,
+            "title": "Criar apresentação",
+            "description": "Preparar os slides para a reunião com os investidores.",
+            "status": "todo",
+            "priority": "high"
+        },
+        {
+            "id": 3,
+            "title": "Backup do sistema",
+            "description": "Realizar backup dos arquivos e banco de dados do sistema.",
+            "status": "done",
+            "priority": "medium"
+        },
+        {
+            "id": 4,
+            "title": "Pesquisa de mercado",
+            "description": "Coletar dados sobre a concorrência e tendências do mercado.",
+            "status": "todo",
+            "priority": "low"
+        },
+        {
+            "id": 5,
+            "title": "Otimizar banco de dados",
+            "description": "Melhorar a performance das consultas otimizando índices e tabelas.",
+            "status": "doing",
+            "priority": "medium"
+        },
+        {
+            "id": 6,
+            "title": "Atualizar documentação",
+            "description": "Revisar e atualizar a documentação do projeto.",
+            "status": "todo",
+            "priority": "low"
+        }
+    ]
+    
+}
