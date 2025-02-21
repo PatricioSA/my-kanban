@@ -1,7 +1,32 @@
 import { PlusIcon } from "@radix-ui/react-icons";
-import { Box, Button, Dialog, Flex, RadioGroup, Text, TextArea, TextField } from "@radix-ui/themes";
+import { Badge, Box, Button, Dialog, Flex, RadioGroup, Text, TextArea, TextField } from "@radix-ui/themes";
+import { FormEventHandler } from "react";
+import { z } from "zod";
+
+const CreateTaskSchema = z.object({
+    title: z.string(),
+    description: z.string(),
+    status: z.enum(["todo", "doing", "done"]),
+    priority: z.enum(["low", "medium", "high"]),
+})
 
 export default function CreateTaskForm() {
+    const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+        e.preventDefault()
+
+        const formData = new FormData(e.currentTarget)
+
+        const title = formData.get("title")
+        const description = formData.get("description")
+        const status = formData.get("status")
+        const priority = formData.get("priority")
+
+        e.currentTarget.reset()
+
+        const taskData = CreateTaskSchema.parse({ title, description, status, priority })
+
+        alert(JSON.stringify(taskData))
+    }
 
     return (
         <Dialog.Root>
@@ -14,7 +39,7 @@ export default function CreateTaskForm() {
             <Dialog.Content >
                 <Dialog.Title mb="6">Nova Tarefa</Dialog.Title>
 
-                <form>
+                <form onSubmit={handleSubmit}>
                     <section className="mb-3">
                         <Text as="label" htmlFor="title">Título</Text>
                         <TextField.Root placeholder="Nova Tarefa" name="title" id="title" autoFocus required />
@@ -25,34 +50,46 @@ export default function CreateTaskForm() {
                         <TextArea placeholder="Descreva a tarefa" name="description" id="desription" autoFocus required />
                     </section>
 
-                    <Flex>
+                    <Flex gap="8">
                         <Box>
                             <Text>Situação</Text>
                             <RadioGroup.Root name="status" defaultValue="todo">
-                                <RadioGroup.Item value="todo">
-                                    À Fazer
-                                </RadioGroup.Item>
-                                <RadioGroup.Item value="doing">
-                                    Em Progresso
-                                </RadioGroup.Item>
-                                <RadioGroup.Item value="done">
-                                    Concluída
-                                </RadioGroup.Item>
+                                <Badge color="gray">
+                                    <RadioGroup.Item value="todo">
+                                        À Fazer
+                                    </RadioGroup.Item>
+                                </Badge>
+                                <Badge color="yellow">
+                                    <RadioGroup.Item value="doing">
+                                        Em Progresso
+                                    </RadioGroup.Item>
+                                </Badge>
+                                <Badge color="green">
+                                    <RadioGroup.Item value="done">
+                                        Concluída
+                                    </RadioGroup.Item>
+                                </Badge>
                             </RadioGroup.Root>
                         </Box>
 
                         <Box>
                             <Text>Prioridade</Text>
                             <RadioGroup.Root name="priority" defaultValue="low">
-                                <RadioGroup.Item value="low">
-                                    Baixa
-                                </RadioGroup.Item>
-                                <RadioGroup.Item value="medium">
-                                    Média
-                                </RadioGroup.Item>
-                                <RadioGroup.Item value="high">
-                                    Alta
-                                </RadioGroup.Item>
+                                <Badge color="sky">
+                                    <RadioGroup.Item value="low">
+                                        Baixa
+                                    </RadioGroup.Item>
+                                </Badge>
+                                <Badge color="amber">
+                                    <RadioGroup.Item value="medium">
+                                        Média
+                                    </RadioGroup.Item>
+                                </Badge>
+                                <Badge color="tomato">
+                                    <RadioGroup.Item value="high">
+                                        Alta
+                                    </RadioGroup.Item>
+                                </Badge>
                             </RadioGroup.Root>
                         </Box>
                     </Flex>
